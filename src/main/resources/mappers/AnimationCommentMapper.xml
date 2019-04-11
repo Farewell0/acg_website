@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wzz.acg.dao.AnimationCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.wzz.acg.pojo.AnimationComment" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="animation_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="commentator_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="commentator_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="detail" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, animation_id, commentator_id, commentator_name, detail, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from animation_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from animation_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wzz.acg.pojo.AnimationComment" >
+    insert into animation_comment (id, animation_id, commentator_id, 
+      commentator_name, detail, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{animationId,jdbcType=INTEGER}, #{commentatorId,jdbcType=INTEGER}, 
+      #{commentatorName,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, now(),now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.wzz.acg.pojo.AnimationComment" >
+    insert into animation_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="animationId != null" >
+        animation_id,
+      </if>
+      <if test="commentatorId != null" >
+        commentator_id,
+      </if>
+      <if test="commentatorName != null" >
+        commentator_name,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="animationId != null" >
+        #{animationId,jdbcType=INTEGER},
+      </if>
+      <if test="commentatorId != null" >
+        #{commentatorId,jdbcType=INTEGER},
+      </if>
+      <if test="commentatorName != null" >
+        #{commentatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wzz.acg.pojo.AnimationComment" >
+    update animation_comment
+    <set >
+      <if test="animationId != null" >
+        animation_id = #{animationId,jdbcType=INTEGER},
+      </if>
+      <if test="commentatorId != null" >
+        commentator_id = #{commentatorId,jdbcType=INTEGER},
+      </if>
+      <if test="commentatorName != null" >
+        commentator_name = #{commentatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzz.acg.pojo.AnimationComment" >
+    update animation_comment
+    set animation_id = #{animationId,jdbcType=INTEGER},
+      commentator_id = #{commentatorId,jdbcType=INTEGER},
+      commentator_name = #{commentatorName,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

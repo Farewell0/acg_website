@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>acg用户注册</title>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <form class="form-signin" id="user">
+        <h2 class="form-signin-heading">请注册</h2>
+        <label for="username" class="sr-only">用户名</label>
+        <input type="text" id="username" class="form-control" placeholder="用户名" required autofocus>
+        <br>
+        <label for="password" class="sr-only">密码</label>
+        <input type="password" id="password" class="form-control" placeholder="密码" required>
+
+        <label for="gender" class="sr-only">性别</label>
+        <input type="text" id="gender" class="form-control" placeholder="性别" required>
+        <br>
+        <label for="email" class="sr-only">邮箱</label>
+        <input type="text" id="email" class="form-control" placeholder="邮箱" required>
+        <br>
+        <label for="phone" class="sr-only">手机号</label>
+        <input type="text" id="phone" class="form-control" placeholder="手机号" required>
+        <br>
+        <label for="address" class="sr-only">地址</label>
+        <input type="text" id="address" class="form-control" placeholder="地址" required>
+        <br>
+        <label for="question" class="sr-only">密保问题</label>
+        <input type="text" id="question" class="form-control" placeholder="密保问题" required>
+        <br>
+        <label for="answer" class="sr-only">密保答案</label>
+        <input type="text" id="answer" class="form-control" placeholder="密保答案" required>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="sender">注册</button>
+    </form>
+
+</div> <!-- /container -->
+
+<script>
+    // $.fn.serializeObject = function()
+    // {
+    //     var o = {};
+    //     var a = this.serializeArray();
+    //     $.each(a, function() {
+    //         if (o[this.name]) {
+    //             if (!o[this.name].push) {
+    //                 o[this.name] = [o[this.name]];
+    //             }
+    //             o[this.name].push(this.value || '');
+    //         } else {
+    //             o[this.name] = this.value || '';
+    //         }
+    //     });
+    //     return o;
+    // };
+
+    $('#sender').click(function(){
+        var params = {
+            "username": $("#username").val(),
+            "password": $("#password").val(),
+            "gender": $("#gender").val(),
+            "email": $("#email").val(),
+            "phone": $("#phone").val(),
+            "address": $("#address").val(),
+            "question": $("#question").val(),
+            "answer": $("#answer").val()
+        };
+        var user = JSON.stringify(params);
+        // var user = $('#user').serializeObject();
+        var page="/user/register.do";
+
+        $.ajax({
+            type: "post",
+            url: page,
+            data: user,
+            dataType: 'json',
+            contentType:"application/json",
+            success: function (r) {
+                if(r.status === 0){
+                    window.setTimeout("location.href='/login.html'", 500);
+                }
+            },
+            error: function (data) {
+                alert("注册失败！");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
